@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block title %} UPLOAD FILE {% endblock title %}
+{%block content %}
+<form action="" method="post" class="ui form" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table class="table table-bordered table-hover">
+    <tr>
+      <th><label>Date and Time :</label></th>
+      <td>{{ form.date }}</td>
+    </tr>
+    <tr>
+      <th><label>The file:</label></th>
+      <td>{{ form.file }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><button type="submit" class="ui button primary">Confirm</button></td>
+    </tr>
+  </table>
+</form>
+{% endblock %} {% block stylesheets %}
+<style>
+  .ui.form {
+    margin: 0 auto;
+    width: 400px;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 10px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,81 @@
+{#    <tbody>#}
+{#      {% for result in RID %}#}
+{#      <tr>#}
+{#        <td>{{ result.REG_TYPE }}</td>#}
+{#        <td>{{ result.STATUT_paquet }}</td>#}
+{#        <td>{{ result.Commentaire }}</td>#}
+{#        <td>#}
+{#          {% if result.Commentaire == 'PROCESSED' %}#}
+{#            <img src="{% static 'img/rsz_processed.png' %}" alt="Processed" class="icon">#}
+{#          {% elif result.Commentaire == 'REJECTED' %}#}
+{#            <img src="{% static 'img/rsz_rejected.png' %}" alt="Rejected" class="icon">#}
+{#          {% elif result.Commentaire == 'PROCESSING' %}#}
+{#            <img src="{% static 'img/rsz_processing.png' %}" alt="Processing" class="icon">#}
+{#          {% elif result.Commentaire == 'FAILED' %}#}
+{#            <img src="{% static 'img/rsz_failed.png' %}" alt="Failed" class="icon">#}
+{#          {% else %}#}
+{#            <img src="{% static 'img/question.png' %}" alt="Unknown" class="icon">#}
+{#          {% endif %}#}
+{#        </td>#}
+{#      </tr>#}
+{#      {% endfor %}#}
+{#    </tbody>#}
+{#<div class="container mt-5">#}
+{#    <h2 class="mb-4">Upload CSV File</h2>#}
+{#    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>#}
+{#        {% csrf_token %}#}
+{#        {{ form.non_field_errors }}#}
+{#        <div class="mb-3">#}
+{#            <label for="datetimepicker" class="form-label">Date and time</label>#}
+{#            <input type="datetime-local" class="form-control" id="datetimepicker" name="datetime">#}
+{#        </div>#}
+{#        <div class="mb-3">#}
+{#            <label for="{{ form.file.id_for_label }}" class="form-label">File</label>#}
+{#            {{ form.file }}#}
+{#            <div class="invalid-feedback">Please choose a file.</div>#}
+{#        </div>#}
+{#        <div class="mb-3">#}
+{#            <label for="{{ form.desc.id_for_label }}" class="form-label">Description</label><br>#}
+{#            <textarea rows="5" cols="33" >#}
+{#            </textarea>#}
+{#        </div>#}
+{##}
+{#        <button type="submit" class="btn btn-primary">Upload</button>#}
+{#    </form>#}
+{#</div>#}
+
+{##}
+{##}
+{## def upload_file(request):#}
+{##     if request.method == 'POST':#}
+{##         form = ImportFileForm(request.POST, request.FILES)#}
+{##         if form.is_valid():#}
+{##             uploaded_file = form.cleaned_data['file']#}
+{##             with fileinput.FileInput(uploaded_file.name, inplace=True, backup='.bak') as file:#}
+{##                 reader = csv.reader(file)#}
+{##                 for row in reader:#}
+{##                     # Assuming row contains data for ImportFileModel and RIDModel#}
+{##                     import_file_data = {#}
+{##                         'date': form.cleaned_data['date'],#}
+{##                         'file': uploaded_file,#}
+{##                         'desc': form.cleaned_data['desc']#}
+{##                     }#}
+{##                     import_file = ImportFileModel.objects.create(**import_file_data)#}
+{###}
+{##                     rid_data = {#}
+                         Jour =  row[0]
+                         Prefecture = row[1]
+                         csc = row[2]
+                         REG_TYPE = row[3]
+                         REG_ID = row[4]
+                         STATUT_paquet = row[5]
+                         Commentaire = row[6]
+{##                         'importFileModel': import_file#}
+{##                     }#}
+{##                     rid_object = RIDModel(**rid_data)#}
+{##                     rid_object.save()#}
+{###}
+{##             return redirect('success_page')  # Redirect to a success page#}
+{##     else:#}
+{##         form = ImportFileForm()#}
+{##     return render(request, 'upload.html', {'form': form})#}

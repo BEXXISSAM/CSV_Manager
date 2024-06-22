@@ -1,0 +1,55 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h2>Search Results</h2>
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% if RID %}
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      {% for result in RID %}
+      <tr>
+        <td><b>REG_TYPE : </b>{{ result.REG_TYPE }}</td>
+        <th rowspan="4" class="iconBox">
+          {% if result.Commentaire == 'PROCESSED' %}
+          <img
+            src="{% static 'img/processed1.png' %}"
+            alt="Processed"
+            class="icon"
+          />
+          {% elif result.Commentaire == 'REJECTED' %}
+          <img
+            src="{% static 'img/rejected.png' %}"
+            alt="Rejected"
+            class="icon"
+          />
+          {% elif result.Commentaire == 'PROCESSING' %}
+          <img
+            src="{% static 'img/processing.png' %}"
+            alt="Processing"
+            class="icon"
+          />
+          {% elif result.Commentaire == 'FAILED' %}
+          <img src="{% static 'img/failed.png' %}" alt="Failed" class="icon" />
+          {% else %}
+          <img
+            src="{% static 'img/question.png' %}"
+            alt="Unknown"
+            class="icon"
+          />
+          {% endif %}
+        </th>
+      </tr>
+      <tr>
+        <td><b>STATUT_paquet : </b>{{ result.STATUT_paquet }}</td>
+      </tr>
+      <tr>
+        <td><b>CSC : </b>{{ result.csc }}</td>
+      </tr>
+      <tr>
+        <td><b>Commentaire : </b>{{ result.Commentaire }}</td>
+      </tr>
+
+      {% endfor %}
+    </thead>
+  </table>
+</div>
+{% endif %} {% endblock %}

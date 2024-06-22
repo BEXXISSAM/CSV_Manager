@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+<form method="post"  action="{% url 'search' %}">
+  {% csrf_token %}
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" name="searched" placeholder="Search by REG_ID" required/>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+
+{% endblock %}
+{% block extra_css %}
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+/>
+{% endblock %}
